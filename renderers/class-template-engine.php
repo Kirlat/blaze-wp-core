@@ -5,8 +5,8 @@ use Blaze\Utils\Utility;
 /**
  * Template Engine Base class
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Template_Engine {
 	public $templateDir;

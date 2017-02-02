@@ -4,8 +4,8 @@ namespace Blaze\WP;
 /**
  * WP Query wrapper
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Query {
 	private $args = null;

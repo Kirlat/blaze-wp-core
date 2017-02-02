@@ -3,8 +3,8 @@ namespace Blaze;
 /**
  * @package     BlazeCore
  * @link
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  *
  * @wordpress-plugin
  * Plugin Name:       Blaze Core

@@ -4,8 +4,8 @@ namespace Blaze\WP;
 /**
  * A WP theme customizer section
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Theme_Customizer_Section {
 	private $ID;

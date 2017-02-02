@@ -4,8 +4,8 @@ namespace Blaze\WP;
 /**
  * Post Meta Box
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Meta_Box
 {
@@ -48,12 +48,12 @@ class Meta_Box
 
 	}
 
-	public function addData_Item(Data_Item $dataItem) {
+	public function addDataItem(Data_Item $dataItem) {
 		$this->items[] = $dataItem;
 	}
 
 	public function addHtmlItem($html) {
-		$this->items[] = new Meta_Box_Html_Item($html);
+		$this->items[] = new Meta_Box_HTML_Item($html);
 	}
 
 	public function render($post)

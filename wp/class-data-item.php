@@ -13,6 +13,12 @@ const DCT_SINGLE_LINE = "single_line";
 const DCT_MULTI_LINE = "multi_line";
 const DCT_SINGLE_SELECT = "single_select";
 
+/**
+ * Single data item, such as custom field, or a theme mod item
+ *
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
+ */
 class Data_Item {
     private $ID;
     private $itemType;

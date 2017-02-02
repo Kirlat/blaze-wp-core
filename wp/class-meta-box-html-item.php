@@ -6,10 +6,10 @@ namespace Blaze\WP;
  *
  * Can be inserted between Meta Box controls (i.e. section title).
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
-class Meta_Box_Html_Item {
+class Meta_Box_HTML_Item {
 	private $html;
 
 	public function __construct($html) {

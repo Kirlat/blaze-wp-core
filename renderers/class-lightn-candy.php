@@ -5,8 +5,8 @@ use Blaze\Utils\Utility;
 /**
  * Lightn_Candy Template Engine class
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Lightn_Candy extends Template_Engine {
 	private $autoloader;

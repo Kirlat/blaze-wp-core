@@ -6,8 +6,8 @@ use Blaze\Utils\Utility;
 /**
  * Site functions
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Site {
 	protected static $instance;

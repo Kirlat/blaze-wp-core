@@ -7,8 +7,8 @@ namespace Blaze\WP;
  * Base class implementation contains all necessary functions to render a WP page.
  * It has a main loop implementation. getPosts() method can be used to execute a main loop.
  *
- * @copyright   Copyright (c) 2016, Kirill Latyshev
- * @author      Kirill Latyshev <kirill@yula.media>
+ * @copyright   Copyright (c) 2016-2017, Kirill Latyshev
+ * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Page
 {
