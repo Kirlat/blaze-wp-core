@@ -18,12 +18,12 @@ class CloseComments {
 	}
 
 	/**
-     * Close comments
-     *
-     * @since  1.0.0
-     * @access public
-     * @return bool return true if post meets the conditions
-     */
+	 * Close comments
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return bool return true if post meets the conditions
+	 */
 	function closeComments( $open, $post_id, $template = 'page-snippet.php' ) {
 		global $wp_query;
 		if ( !$post_id ) {
