@@ -164,4 +164,9 @@ class Page
 		return $this->site->getMainMenu(array(
 			"format" => "bootstrap3"));
 	}
+
+
+	public function searchForm()  {
+		return get_search_form(false);
+	}
 }
