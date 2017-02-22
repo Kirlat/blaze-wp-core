@@ -1,6 +1,7 @@
 <?php
 namespace Blaze\WP;
 use Blaze\Renderers\Renderer;
+use Blaze\Utils\Messages;
 use Blaze\Utils\Utility;
 
 /**
@@ -89,6 +90,8 @@ class Site {
 
 		$this->renderer = new Renderer($this->templateDir, $this->compiledTemplateDir);
 		$this->serveStaticData = false;
+
+		$this->messages = new Messages();
 	}
 
 	/**
