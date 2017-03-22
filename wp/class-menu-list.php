@@ -65,9 +65,6 @@ class Menu_List
 		} else if ($this->align === 'right') {
 			$top_level_classes = ' navbar-right';
 		}
-		else {
-			$top_level_classes = '';
-		}
 		if (!empty($this->classNames))
 			$top_level_classes .= ' ' . $this->classNames;
 
