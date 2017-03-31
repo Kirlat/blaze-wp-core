@@ -35,9 +35,17 @@ class Menu
 
 		$locations = get_nav_menu_locations();
 
-		if ($locations && isset($locations[$menu_slug])) {
+		// Get the menu ID
+		$menu_id = (isset($locations[$menu_slug]) ? $locations[$menu_slug] : null);
 
-			$menu = wp_get_nav_menu_object($locations[$menu_slug]);
+		if (!empty($menu_id)/*$locations && isset($locations[$menu_slug])*/) {
+
+			if (defined('ICL_LANGUAGE_CODE')) {
+				// If WMPL is installed and activated get the localized menu object
+				$menu_id = apply_filters( 'wpml_object_id', $menu_id, 'nav_menu');
+			}
+
+			$menu = wp_get_nav_menu_object($menu_id);
 			$menu_items = wp_get_nav_menu_items($menu->term_id, array('order' => 'DESC'));
 
 			if (!isset($menu_items)) return ('<ul><li>Menu items are not defined.</li></ul>');
