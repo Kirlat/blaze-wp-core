@@ -46,7 +46,12 @@ class Theme_Customizer_Section {
 		// Allow registration of supported types only
 		if ($setting->isThemeMod()) {
 			$type = 'text';
-			if ($setting->isSingleLineCtrl()) $type = 'text';
+			if ($setting->isSingleLineCtrl()) {
+				$type = 'text';
+			}
+			else if ($setting->isMultiLineCtrl()) {
+				$type = 'textarea';
+			}
 
 			$wp_customize->add_setting(
 				$setting->getID(),

@@ -56,7 +56,7 @@ class Menu_Element
 		$html = '';
 		if ($this->isParent) {
 			// A parent item that has a submenu
-			$html .= "<li class='menu-item dropdown{$this->classes}'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>{$this->title} <span class='caret'></span></a>";
+			$html .= "<li class='menu-item dropdown{$this->classes}'><a href='{$this->link}' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>{$this->title} <span class='caret'></span></a>";
 			$html .= "<ul class='dropdown-menu'>";
 			foreach ($this->children as $child) {
 				$html .= $child->bootstrap3Html();
