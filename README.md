@@ -1,4 +1,4 @@
-# Blaze WP Core <sup>1.0.2</sup>
+# Blaze WP Core <sup>1.0.4</sup>
 An object-oriented MVW framework for WordPress themes.
 
 Idea behind Blaze WP Core is move most often used functionality of a WordPress theme into a library that can be reused across different themes. This will allow to:
