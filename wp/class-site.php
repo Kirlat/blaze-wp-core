@@ -37,6 +37,8 @@ class Site {
 
 	private $sidebars = array();
 
+	private $widgets = array();
+
 	private $shortcodes;
 
 	private $dataItems = array();
@@ -198,6 +200,25 @@ class Site {
 
 	public function getSidebar($id) {
 		return $this->sidebars[$id]->get();
+	}
+
+	/**
+	 * Creates a new widget
+	 *
+	 * @param $widget_type - a fully qualified widget class name, i.e. '\Blaze\WP\Widgets\Posts_Widget'
+	 * @return mixed - if widget is created successfully, a newly created widget instance is returned.
+	 *                 Otherwise, a return value is null
+	 */
+	public function createWidget($widget_type) {
+
+		// Cannot create widget if type is not provided
+		if (!empty($widget_type)) {
+			$widget = new $widget_type();
+			$id = $widget->getID();
+			$this->widgets[$id] =  $widget;
+			return $widget;
+		}
+		return null;
 	}
 
 	/**

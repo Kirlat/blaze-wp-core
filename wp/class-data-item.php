@@ -8,14 +8,15 @@ namespace Blaze\WP;
  * @author      Kirill Latyshev <kirlat@yula.media>
  */
 class Data_Item {
-	// Setting types
-	const DIT_THEME_MOD = "theme_mod";
-	const DIT_CUSTOM_FIELD = "custom_field";
+	// Item type
+	const DIT_THEME_MOD = "theme_mod"; // A theme option data item
+	const DIT_CUSTOM_FIELD = "custom_field"; // A custom field
+	const DIT_WIDGET_FIELD = "widget_field"; // A field of a widget
 
 	// Data types
 	const DDT_STRING = "string";
 
-// Data types
+	// Control types
 	const DCT_SINGLE_LINE = "single_line";
 	const DCT_MULTI_LINE = "multi_line";
 	const DCT_SINGLE_SELECT = "single_select";
@@ -28,6 +29,7 @@ class Data_Item {
 
 	private $controlType;
 	private $label;
+	private $description;
 
 	private $allowed;
 
@@ -40,6 +42,7 @@ class Data_Item {
 		$this->defaultValue = !isset($params['defaultValue']) ? '' : $params['defaultValue'];
 		$this->controlType = !isset($params['controlType']) ? Data_Item::DCT_SINGLE_LINE : $params['controlType'];
 		$this->label = !isset($params['label']) ? $id : $params['label'];
+		$this->description = !isset($params['description']) ? null : $params['description'];
 		$this->selectList = !isset($params['selectList']) ? null : $params['selectList'];
 		$this->restrictTags = !isset($params['restrictTags']) ? true : $params['restrictTags'];
 
@@ -82,6 +85,10 @@ class Data_Item {
 		return $this->itemType == Data_Item::DIT_CUSTOM_FIELD? true: false;
 	}
 
+	public function isWidgetField() {
+		return $this->itemType == Data_Item::DIT_WIDGET_FIELD? true: false;
+	}
+
 	public function isSingleLineCtrl() {
 		return $this->controlType == Data_Item::DCT_SINGLE_LINE? true: false;
 	}
@@ -98,11 +105,22 @@ class Data_Item {
 		return $this->ID;
 	}
 
-	public function getValue($post_id = null) {
+	/**
+	 * Returns a value of a data items. Depending on an item type, an argument may be required.
+	 *
+	 * @param null $data_id - id of a data object required to retrieve a data. What is it depends on the item type:
+	 *                        - for DIT_THEME_MOD it is not required
+	 *                        - for DIT_CUSTOM_FIELD it is a Post ID of a post whose data needs to be retrieved.
+	 *                          If no Post ID provided, an ID of a current post will be used.
+	 *                        - for DIT_WIZARD_FIELD it is an '$instance' object that contains widget fields data
+	 * @return mixed|null|string - a value of a data item
+	 */
+	public function getValue($data_id = null) {
 		if ($this->isThemeMod()) {
 			return get_theme_mod($this->ID, $this->defaultValue);
 		}
 		else if ($this->isCustomField()) {
+			$post_id = $data_id;
 			// If no post ID provided, use the one of the current page
 			if (!$post_id) {
 				global $post;
@@ -113,7 +131,12 @@ class Data_Item {
 			if ($value == '') $value = $this->getDefaultValue();
 			return $value;
 		}
+		if ($this->isWidgetField()) {
+			$instance = $data_id;
+			return $instance[$this->getID()];
+		}
 		else {
+			// Unknown or incorrect item type
 			return null;
 		}
 	}
@@ -140,6 +163,10 @@ class Data_Item {
 
 	public function getLabel() {
 		return $this->label;
+	}
+
+	public function getDescription() {
+		return $this->description;
 	}
 
 	public function save($value, $post_id = null) {

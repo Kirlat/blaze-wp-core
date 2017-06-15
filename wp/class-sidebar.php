@@ -24,7 +24,7 @@ class Sidebar
 		$this->ID = !isset($params['id']) ? Utils\Utility::getRandomString(): $params['id'];
 		$this->name = !isset($params['name']) ? 'Anonymous Sidebar': $params['name'];
 		$this->description = !isset($params['description']) ? '': $params['description'];
-		$this->class = !isset($params['class']) ? '': $params['class'];
+		$this->class = !isset($params['class']) ? '123': $params['class'];
 		$this->beforeWidget = !isset($params['beforeWidget']) ? '': $params['beforeWidget'];
 		$this->afterWidget = !isset($params['afterWidget']) ? '': $params['afterWidget'];
 		$this->beforeTitle = !isset($params['beforeTitle']) ? '': $params['beforeTitle'];
@@ -52,6 +52,7 @@ class Sidebar
 
 	public function get() {
 		$sidebar_html = '';
+		// If sidebar has any widgets inside
 		if ( is_active_sidebar($this->ID)) {
 			ob_start();
 			dynamic_sidebar($this->ID);
