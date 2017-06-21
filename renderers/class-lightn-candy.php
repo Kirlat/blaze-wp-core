@@ -63,9 +63,9 @@ class Lightn_Candy extends Template_Engine {
 		return $html;
 	}
 
-	public function getCompiledFileName($template_file)
+	public function getCompiledFileName($template_file_name)
 	{
-		return $template_file . '.php';
+		return $template_file_name . '.php';
 	}
 
 	public function render($template, $data) {
@@ -109,20 +109,19 @@ class Lightn_Candy extends Template_Engine {
 	 *   MD_AUTO: if precompiled file exists, and its modification date is no older than the template file modification date, a precompiled
 	 *            template will be used for rendering. In all other cases a template will be compiled and saved to a file before rendering
 	 *
-	 * @param $template_file string Name of a template file
+	 * @param $template_file_name string A path to a template file
 	 * @param $data $data array Associative array of data elements (name/ value)
 	 * @param string $mode Rendering mode: MD_COMPILE, MD_PRECOMPILE, MD_AUTO
 	 * @param null $engine Template engine to use to render a template. If null, default one will be used
 	 * @return mixed A rendered template in a string
 	 */
-	public function renderFromFile($template_file, $data)
+	public function renderFromFile($template_file_name, $data)
 	{
 		// TODO: create subdirectories in compiled folder if does not exist
-		$template_file_name = $this->templateDir . $template_file;
 		// check if template file exists
 		if (!is_file($template_file_name))
 			return '';
-		$compiled_file_name = $this->compiledTemplateDir . $this->getCompiledFileName($template_file);
+		$compiled_file_name = $this->compiledTemplateDir . $this->getCompiledFileName($template_file_name);
 		if ($this->mode == Lightn_Candy::MD_COMPILE) {
 			$this->compileToFile($template_file_name, $compiled_file_name);
 			return $this->renderFromCompiledFile($compiled_file_name, $data);

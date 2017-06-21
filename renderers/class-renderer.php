@@ -76,13 +76,13 @@ class Renderer {
 	 *   MD_AUTO: if precompiled file exists, and its modification date is no older than the template file modification date, a precompiled
 	 *            template will be used for rendering. In all other cases a template will be compiled and saved to a file before rendering
 	 *
-	 * @param $template_file string Name of a template file
+	 * @param $template_file_name string A path to a template file
 	 * @param $data $data array Associative array of data elements (name/ value)
 	 * @param string $mode Rendering mode: MD_COMPILE, MD_PRECOMPILE, MD_AUTO
 	 * @param null $engine Template engine to use to render a template. If null, default one will be used
 	 * @return mixed A rendered template in a string
 	 */
-	public function renderFromFile($template_file, $data, $engine = null)
+	public function renderFromFile($template_file_name, $data, $engine = null)
 	{
 		if (is_null($engine))
 			$engine = $this->defaultEngine;
@@ -91,6 +91,6 @@ class Renderer {
 		if (!isset($this->engines[$engine]) && !array_key_exists($engine, $this->engines))
 			return '';
 
-		return $this->engines[$engine]->renderFromFile($template_file, $data);
+		return $this->engines[$engine]->renderFromFile($template_file_name, $data);
 	}
 }

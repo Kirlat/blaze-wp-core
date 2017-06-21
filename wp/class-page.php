@@ -1,5 +1,6 @@
 <?php
 namespace Blaze\WP;
+use Blaze\Utils\Utility;
 
 /**
  * A base class for a site page
@@ -32,9 +33,14 @@ class Page
 	 * @var array associative array
 	 */
 	public $data = array();
-
 	public $posts = array();
 	private $serveStaticData;
+
+	/**
+	 * @var array A sequence of partial templates. A combination of those templates renders a page. Templates must be added
+	 * in an order that should match a desired sequence of templates on a page.
+	 */
+	public $templateParts = array();
 
 	/**
 	 * Default constructor
@@ -78,7 +84,80 @@ class Page
 	}
 
 	/**
-	 * Renders a WP page from several template parts located in a file system
+	 * Adds a template file from an arbitrary location to a template sequence of a page.
+	 * This function is chainable.
+	 *
+	 * @param $template_file string A fully qualified name of a template file
+	 * @return $this Page A Page instance (can be used for chaining)
+	 */
+	public function addTemplate($template_file) {
+		$this->templateParts[] = $template_file;
+		return $this;
+	}
+
+	/**
+	 * Adds a template file from a content directory (see Site->contentTemplatesDirName for a default value)
+	 * to a template sequence of a page. This function is chainable.
+	 *
+	 * @param $template_file string A relative path to a template file
+	 * @return $this Page A Page instance (can be used for chaining)
+	 */
+	public function addContentTemplate($template_file) {
+		$this->templateParts[] = $this->site->contentTemplateDir . $template_file;
+		return $this;
+	}
+
+	/**
+	 * Adds a template file from a content directory (see Site->contentTemplatesDirName for a default value)
+	 * with a name and location that will match a post type, a root relative path, and a name of a post (page).
+	 * Location within a template directory is post-type/root-relative-url/page-name.ext
+	 * This function is chainable.
+	 *
+	 * @return $this Page A Page instance (can be used for chaining)
+	 */
+	public function addMatchingContentTemplate() {
+		$post_url = get_permalink();
+		$root_relative_url = substr($post_url, strlen($this->site->siteURL));
+		$template_file = get_post_type() . substr($root_relative_url, 0, strlen($root_relative_url)-1) . ".mst";
+		$this->templateParts[] = $this->site->contentTemplateDir . $template_file;
+		return $this;
+	}
+
+	/**
+	 * Adds a template file from a theme's template directory (see Site->themeTemplatesDirName for a default value)
+	 * to a template sequence of a page. This function is chainable.
+	 *
+	 * @param $template_file string A relative path to a template file
+	 * @return $this Page A Page instance (can be used for chaining)
+	 */
+	public function addThemeTemplate($template_file) {
+		$this->templateParts[] = $this->site->themeTemplateDir . $template_file;
+		return $this;
+	}
+
+	/**
+	 * Renders, if necessary, and displays a sequence of page templates on a web page. The sequence is defined in
+	 * $templateParts. This is a chainable function.
+	 *
+	 * @return $this Page Instance of a Page object
+	 */
+	public function display() {
+		$html = '';
+		$data = $this->serveStaticData? $this->staticData(): $this;
+		foreach($this->templateParts as $file_name) {
+			$html .= $this->site->renderer->renderFromFile($file_name, $data);
+		}
+		get_header();
+		echo $html;
+		get_footer();
+		return $this;
+	}
+
+	/**
+	 * Warning! This function has been deprecated. Use combinations of addTemplate() and display() functions instead as shown below:
+	 * WP\Site::getInstance()->createPage()->addThemeTemplate("header.mst")->addMatchingContentTemplate()->addThemeTemplate("footer.mst")->display();
+	 *
+	 * Renders a WP page from several template parts located in a theme's template directory
 	 *
 	 * @param array $template_parts Names of template files in an array
 	 */
@@ -86,7 +165,7 @@ class Page
 		$html = '';
 		$data = $this->serveStaticData? $this->staticData(): $this;
 		foreach($template_parts as $file_name) {
-			$html .= $this->site->renderer->renderFromFile($file_name, $data);
+			$html .= $this->site->renderer->renderFromFile($this->site->themeTemplateDir . $file_name, $data);
 		}
 		get_header();
 		echo $html;
@@ -165,8 +244,16 @@ class Page
 			"format" => "bootstrap3"));
 	}
 
-
-	public function searchForm()  {
+	public function searchForm() {
 		return get_search_form(false);
+	}
+
+	/**
+	 * Returns a URL of a current page or false if page does not exist
+	 *
+	 * @return false|string - URL of a page (with a trailing slash) or false if page does not exist
+	 */
+	public function getURL() {
+		return get_permalink();
 	}
 }
