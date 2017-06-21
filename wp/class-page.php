@@ -108,17 +108,22 @@ class Page
 	}
 
 	/**
-	 * Adds a template file from a content directory (see Site->contentTemplatesDirName for a default value)
-	 * with a name and location that will match a post type, a root relative path, and a name of a post (page).
-	 * Location within a template directory is post-type/root-relative-url/page-name.ext
+	 * Adds a Mustache (.mst extension) template file from a
+	 * content directory (see Site->contentTemplatesDirName for a default value).
 	 * This function is chainable.
 	 *
+	 * @param $template_file string A relative path to a template file. If empty, a file name will be auto generated
+	 * using the following schema:
+	 * 		If a URL of a page is mysite.com/parent-page/child-page/ then the matching template
+	 * 		location within a template directory would be parent-page/child-page.ext
 	 * @return $this Page A Page instance (can be used for chaining)
 	 */
-	public function addMatchingContentTemplate() {
-		$post_url = get_permalink();
-		$root_relative_url = substr($post_url, strlen($this->site->siteURL));
-		$template_file = get_post_type() . substr($root_relative_url, 0, strlen($root_relative_url)-1) . ".mst";
+	public function addMstContentTemplate($template_file = null) {
+		if (empty($template_file)) {
+			$post_url = get_permalink();
+			$root_relative_url = substr($post_url, strlen($this->site->siteURL));
+			$template_file = substr($root_relative_url, 0, strlen($root_relative_url)-1) . ".mst";
+		}
 		$this->templateParts[] = $this->site->contentTemplateDir . $template_file;
 		return $this;
 	}
