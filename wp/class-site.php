@@ -80,7 +80,8 @@ class Site {
 		$this->themeDir = get_stylesheet_directory();
 		$this->themeURI = get_stylesheet_directory_uri();
 		$this->uploadsDir = wp_upload_dir()['basedir'];
-		$this->contentTemplatesDirName = 'blaze-content-templates';
+		$this->contentTemplatesDirName = 'blaze-content';
+		$this->contentTemplateFileName = 'content.mst';
 		$this->themeTemplatesDirName = 'views/templates';
 		$this->themeCompiledTemplatesDirName = 'views/compiled';
 		$this->siteName = get_bloginfo();
