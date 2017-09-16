@@ -30,9 +30,8 @@ class Mustache extends Template_Engine {
 		return $this->engine->render($template, $data);
 	}
 
-	public function renderFromFile($template_file, $data)
+	public function renderFromFile($template_file_name, $data)
 	{
-		$template_file_name = $this->templateDir . $template_file;
 		// check if template file exists
 		if (!is_file($template_file_name))
 			return '';

@@ -29,7 +29,7 @@ class Template_Engine {
 
 	}
 
-	public function renderFromFile($template_file, $data)
+	public function renderFromFile($template_file_name, $data)
 	{
 
 	}

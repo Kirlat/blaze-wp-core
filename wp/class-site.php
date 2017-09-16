@@ -79,12 +79,18 @@ class Site {
 		$this->pathSeparator = '/';
 		$this->themeDir = get_stylesheet_directory();
 		$this->themeURI = get_stylesheet_directory_uri();
+		$this->uploadsDir = wp_upload_dir()['basedir'];
+		$this->contentTemplatesDirName = 'blaze-content';
+		$this->contentTemplateFileName = 'content.mst';
+		$this->themeTemplatesDirName = 'views/templates';
+		$this->themeCompiledTemplatesDirName = 'views/compiled';
 		$this->siteName = get_bloginfo();
 		$this->siteURL = get_bloginfo('url');
 		$this->colorboxSupport = false;
 		$this->wooCommerceSupport = false;
-		$this->templateDir = Utility::forceTrailingSlash($this->themeDir).'views/templates/';
-		$this->compiledTemplateDir = Utility::forceTrailingSlash($this->themeDir).'views/compiled/';
+		$this->contentTemplateDir = Utility::forceTrailingSlash($this->uploadsDir).$this->contentTemplatesDirName.'/';
+		$this->themeTemplateDir = Utility::forceTrailingSlash($this->themeDir).$this->themeTemplatesDirName.'/';
+		$this->themeCompiledTemplateDir = Utility::forceTrailingSlash($this->themeDir).$this->themeCompiledTemplatesDirName.'/';
 
 		$this->shortcodes = new Shortcodes();
 
