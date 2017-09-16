@@ -384,4 +384,8 @@ class Site {
 		}
 		return 0;
 	}
+
+	public function registerStyles() {
+        call_user_func('\Blaze\WP\Meta_Box::registerStyle');
+    }
 }

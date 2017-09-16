@@ -31,6 +31,8 @@ class Data_Item {
 	private $label;
 	private $description;
 
+	private $rows; // Number of rows for DCT_MULTI_LINE items. Ignored for other data types
+
 	private $allowed;
 
 	public function __construct($id, array $params = null)
@@ -45,6 +47,7 @@ class Data_Item {
 		$this->description = !isset($params['description']) ? null : $params['description'];
 		$this->selectList = !isset($params['selectList']) ? null : $params['selectList'];
 		$this->restrictTags = !isset($params['restrictTags']) ? true : $params['restrictTags'];
+        $this->rows = !isset($params['rows']) ? 5 : $params['rows'];
 
 		// Allowed tags
 		$this->allowed = array(
@@ -168,6 +171,10 @@ class Data_Item {
 	public function getDescription() {
 		return $this->description;
 	}
+
+    public function getRows() {
+        return $this->rows;
+    }
 
 	public function save($value, $post_id = null) {
 		if ($this->isCustomField()) {

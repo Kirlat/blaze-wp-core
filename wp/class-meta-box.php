@@ -107,10 +107,13 @@ class Meta_Box
 		$placeholder = $dataItem->getDefaultValue();
 		$id = 'id-' . $dataItem_id;
 		$label = $dataItem->getLabel();
+		$rows = $dataItem->getRows();
+		$description = $dataItem->getDescription();
 		$html = "
 			<div class='admin-mtbx-form-group'>
 				<label class='admin-mtbx-label' for='{$id}'>{$label}</label><br>
-				<textarea rows='5' cols='50' class='admin-mtbx-form-control--textarea' name='{$dataItem_id}' id='{$id}' placeholder='{$placeholder}'>{$current_val}</textarea>
+				<textarea cols='50' rows='{$rows}' class='admin-mtbx-form-control--textarea' name='{$dataItem_id}' id='{$id}' placeholder='{$placeholder}'>{$current_val}</textarea>
+				<p class='admin-mtbx-description'>{$description}</p>
 			</div>
 		";
 		return $html;
@@ -162,4 +165,114 @@ class Meta_Box
 			}
 		}
 	}
+
+	public static function registerStyle() {
+        add_action('admin_head', function() {
+            echo '<style>
+            .admin-mtbx-form-group {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            label.admin-mtbx-label {
+                display: inline-block;
+                max-width: 100%;
+                margin-bottom: 5px;
+                font-weight: 700;
+            }
+            .admin-mtbx-form-control {
+                display: block;
+                width: 100%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+            .admin-mtbx-form-control--textarea {
+                display: block;
+                width: 100%;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+            .admin-mtbx-description {
+                display: block;
+                margin-top: 5px;
+                margin-bottom: 10px;
+                color: #737373;
+            }
+          </style>';
+        });
+    }
+
+	public static function registerStyleCB() {
+        echo '<style>
+            .admin-mtbx-form-group {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            label.admin-mtbx-label {
+                display: inline-block;
+                max-width: 100%;
+                margin-bottom: 5px;
+                font-weight: 700;
+            }
+            .admin-mtbx-form-control {
+                display: block;
+                width: 100%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+            .admin-mtbx-form-control--textarea {
+                display: block;
+                width: 100%;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+            .admin-mtbx-description {
+                display: block;
+                margin-top: 5px;
+                margin-bottom: 10px;
+                color: #737373;
+            }
+          </style>';
+    }
 }
