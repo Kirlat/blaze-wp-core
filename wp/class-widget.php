@@ -116,6 +116,7 @@ class Widget extends \WP_Widget {
             $title = esc_attr( $dataItem->getLabel() );
             $name = esc_attr( $this->get_field_name( $dataItem->getID() ) );
             $description = esc_attr($dataItem->getDescription());
+            $value = '';
             $value = $text = ! empty( $dataItem->getValue($instance) ) ?
                 esc_attr($dataItem->getValue($instance)) : esc_html($dataItem->getDefaultValue());
 

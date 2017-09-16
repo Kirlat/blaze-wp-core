@@ -48,7 +48,7 @@ class Posts_Widget extends Widget {
 
 
     public function widget($args, $instance) {
-        $post_num = $instance['quantity'];
+        $post_num = 5;
 
         // Custom query parameters
         $queryArgs = array(
@@ -62,12 +62,13 @@ class Posts_Widget extends Widget {
         $recent_posts = $q->getPosts('\Blaze\WP\Post');
         usort($recent_posts, '\Blaze\BlazePage::titleAscComp');
 
-        $widget_container_classes = $this->wDataItems['widget-container-classes']->getValue($instance);
-        $widget_title_classes = $this->wDataItems['widget-title-classes']->getValue($instance);
-        $widget_body_classes = $this->wDataItems['widget-body-classes']->getValue($instance);
+        $widget_container_classes = '';
+        $widget_title_classes = '';
+        $widget_body_classes = '';
+        $title = 'Top Blog Posts';
         $content = "<div class='blaze-widget {$widget_container_classes}'>";
-        if ( !empty( $instance['title'] ) ) {
-            $content .= "<h4 class='blaze-widget__title {$widget_title_classes}'>" . apply_filters( 'widget_title', $instance['title'] ) . "</h4>";
+        if ( !empty($title ) ) {
+            $content .= "<h4 class='blaze-widget__title {$widget_title_classes}'>" . apply_filters( 'widget_title', $title ) . "</h4>";
         }
         $content .= "<div class='blaze-widget__body {$widget_body_classes}'>";
 
