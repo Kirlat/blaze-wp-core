@@ -38,15 +38,26 @@ class Meta_Box
 	}
 
 	public function register() {
-		global $post;
-		$page_template = get_page_template_slug($post->ID);
-
 		// If template for which to show specified, show metabox for this template only
-		if (isset($this->showForTemplate) && $this->showForTemplate === $page_template) {
+		if ($this->isVisible()) {
 			add_meta_box($this->ID, $this->title, array($this, 'render'), $this->screen, $this->context, $this->priority);
 		}
-
 	}
+
+	public function isVisible() {
+	    if (!$this->showForTemplate) {
+	        return false;
+        }
+
+        global $post;
+        $page_template = get_page_template_slug($post->ID);
+
+        $show_for_template = $this->showForTemplate;
+        if (!is_array($show_for_template)) {
+            $show_for_template = [$show_for_template];
+        }
+        return in_array($page_template, $show_for_template);
+    }
 
 	public function addDataItem(Data_Item $dataItem) {
 		$this->items[] = $dataItem;
@@ -155,7 +166,7 @@ class Meta_Box
 
 		// if metabox is set to be shown for certain tempate only and template name does not match, bail
 		$page_template = get_page_template_slug($post_id);
-		if (!isset($this->showForTemplate) || $this->showForTemplate != $page_template) return;
+		if ($this->isVisible()) return;
 
 		// Make sure data is set before trying to save it
 		foreach ($this->items as $item) {
