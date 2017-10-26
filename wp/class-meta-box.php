@@ -164,9 +164,8 @@ class Meta_Box
 		// if our current user can't edit this post, bail
 		if(!current_user_can('edit_post')) return;
 
-		// if metabox is set to be shown for certain tempate only and template name does not match, bail
-		$page_template = get_page_template_slug($post_id);
-		if ($this->isVisible()) return;
+		// if metabox is set to be shown for certain templates only, don't do anything
+		if (!$this->isVisible()) return;
 
 		// Make sure data is set before trying to save it
 		foreach ($this->items as $item) {
