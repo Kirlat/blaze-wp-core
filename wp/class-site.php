@@ -131,7 +131,10 @@ class Site {
 		if (isset($params['pageType'])) $this->pageType = $params['pageType'];
 		if (isset($params['postType'])) $this->postType = $params['postType'];
 		if (isset($params['pathSeparator'])) $this->pathSeparator = $params['pathSeparator'];
-		if (isset($params['templateDir'])) $this->templateDir = $params['templateDir'];
+		if (isset($params['templateDir'])) {
+			$this->themeTemplatesDirName = $params['templateDir'];
+			$this->themeTemplateDir = Utility::forceTrailingSlash($this->themeDir).$this->themeTemplatesDirName.'/';
+		}
 		if (isset($params['themeDir'])) $this->themeDir = $params['themeDir'];
 		if (isset($params['themeURI'])) $this->themeURI = $params['themeURI'];
 		if (isset($params['siteName'])) $this->siteName = $params['siteName'];
