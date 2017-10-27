@@ -27,7 +27,11 @@ class Meta_Box
 		$this->screen = !isset($params['screen']) ? null : $params['screen'];
 		$this->context = !isset($params['context']) ? 'advanced' : $params['context'];
 		$this->priority = !isset($params['priority']) ? 'default' : $params['priority'];
-		$this->showForTemplate = !isset($params['showForTemplate']) ? '' : $params['showForTemplate'];
+		$this->showForTemplate = !isset($params['showForTemplate']) ? '[]' : $params['showForTemplate'];
+        if (!is_array($this->showForTemplate)) {
+            // If a sting is provided, convert it to an array. showForTemplate should always be in an array format
+            $this->showForTemplate = [$this->showForTemplate];
+        }
 
 		$this->nonce_action = $this->ID . "_nonce_action";
 		$this->nonce_name = $this->ID . "_nonce";
@@ -39,24 +43,19 @@ class Meta_Box
 
 	public function register() {
 		// If template for which to show specified, show metabox for this template only
-		if ($this->isVisible()) {
+		if ($this->isEnabled()) {
 			add_meta_box($this->ID, $this->title, array($this, 'render'), $this->screen, $this->context, $this->priority);
 		}
 	}
 
-	public function isVisible() {
+	public function isEnabled() {
 	    if (!$this->showForTemplate) {
 	        return false;
         }
 
         global $post;
         $page_template = get_page_template_slug($post->ID);
-
-        $show_for_template = $this->showForTemplate;
-        if (!is_array($show_for_template)) {
-            $show_for_template = [$show_for_template];
-        }
-        return in_array($page_template, $show_for_template);
+        return in_array($page_template, $this->showForTemplate);
     }
 
 	public function addDataItem(Data_Item $dataItem) {
@@ -165,7 +164,7 @@ class Meta_Box
 		if(!current_user_can('edit_post')) return;
 
 		// if metabox is set to be shown for certain templates only, don't do anything
-		if (!$this->isVisible()) return;
+		if (!$this->isEnabled()) return;
 
 		// Make sure data is set before trying to save it
 		foreach ($this->items as $item) {
