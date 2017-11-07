@@ -27,7 +27,7 @@ class Meta_Box
 		$this->screen = !isset($params['screen']) ? null : $params['screen'];
 		$this->context = !isset($params['context']) ? 'advanced' : $params['context'];
 		$this->priority = !isset($params['priority']) ? 'default' : $params['priority'];
-		$this->showForTemplate = !isset($params['showForTemplate']) ? '[]' : $params['showForTemplate'];
+		$this->showForTemplate = !isset($params['showForTemplate']) ? [] : $params['showForTemplate'];
         if (!is_array($this->showForTemplate)) {
             // If a sting is provided, convert it to an array. showForTemplate should always be in an array format
             $this->showForTemplate = [$this->showForTemplate];
@@ -49,8 +49,9 @@ class Meta_Box
 	}
 
 	public function isEnabled() {
-	    if (!$this->showForTemplate) {
-	        return false;
+	    if (!$this->showForTemplate || empty($this->showForTemplate)) {
+	        // If no visibility preferences set, consider meta box enabled by default
+	        return true;
         }
 
         global $post;
