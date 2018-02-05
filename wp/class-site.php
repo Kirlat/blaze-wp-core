@@ -231,7 +231,7 @@ class Site {
 	}
 
 	/**
-	 * Type is a name of a function inside WpShortocdes class that will handle it
+	 * Type is a name of a function inside Shortcodes class that will handle it
 	 *
 	 * @param $name
 	 * @param $type

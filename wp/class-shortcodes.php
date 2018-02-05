@@ -19,7 +19,7 @@ class Shortcodes
 
 	/**
 	 * Display a Bootstrap menu
-	 * Usage: '[blaze-wp-menu menu-name="menu-slug" format="bootstrap3" levels="3"]'
+	 * Usage: '[blaze-wp-menu menu="menu-slug" format="bootstrap3" levels="3"]'
 	 * Two additional parameters are optional
 	 *
 	 */
