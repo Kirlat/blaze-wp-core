@@ -117,8 +117,16 @@ class Widget extends \WP_Widget {
             $name = esc_attr( $this->get_field_name( $dataItem->getID() ) );
             $description = esc_attr($dataItem->getDescription());
             $value = '';
-            $value = $text = ! empty( $dataItem->getValue($instance) ) ?
-                esc_attr($dataItem->getValue($instance)) : esc_html($dataItem->getDefaultValue());
+            if (method_exists($dataItem, "getDefaultValue")) {
+                $default_value = $dataItem->getDefaultValue();
+                $value = esc_html($default_value);
+            }
+            if (method_exists($dataItem, "getValue")) {
+                $instance_value = $dataItem->getValue($instance);
+                if (! empty($instance_value)) {
+                    $value = esc_attr($instance_value);
+                }
+            }
 
             $html .= "<p><label for='{$id}'>{$title}</label>" .
 			    "<input class='widefat' id='{$id}' name='{$name}' type='text' value='{$value}'>";
@@ -145,8 +153,18 @@ class Widget extends \WP_Widget {
 
         foreach ($this->wDataItems as $dataItem) {
             $data_item_id = $dataItem->getID();
-            $instance[$dataItem->getID()] = ( !empty( $dataItem->getValue($new_instance) ) ) ?
-                strip_tags( $dataItem->getValue($new_instance) ) : $dataItem->getDefaultValue();
+
+            $value = '';
+            if (method_exists($dataItem, "getDefaultValue")) {
+                $value = $dataItem->getDefaultValue();
+            }
+            if (method_exists($dataItem, "getValue")) {
+                $new_instance_value = $dataItem->getValue($new_instance);
+                if (! empty($new_instance_value)) {
+                    $value = strip_tags($new_instance_value);
+                }
+            }
+            $instance[$data_item_id] = $value;
         }
 
 		return $instance;
